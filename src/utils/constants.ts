@@ -5,7 +5,7 @@ export const projects: TProject[] = [
     id: 1,
     name: "Project 1",
     description: "",
-    status: "active",
+    status: "archive",
     template: {
       id: 1,
       name: "Template 1",

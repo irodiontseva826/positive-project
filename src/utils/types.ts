@@ -21,7 +21,8 @@ type Template = {
   steps: TProjectStep[];
 };
 
-export type TStatus = "" | "active" | "archive";
+export type TStatus = "active" | "archive";
+export type TProjectsStatus = TStatus | "all";
 
 export type TProject = {
   id: number;

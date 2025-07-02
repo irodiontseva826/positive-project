@@ -7,10 +7,12 @@ import {
   TableBody,
   Checkbox,
 } from "@mui/material";
-import { projects } from "../../utils/constants";
 import { Link } from "react-router-dom";
+import { useSelector } from "../../services/store";
+import { getProjectsState } from "../../services/slices/projectsSlice";
 
 export const ProjectsTable = () => {
+  const projects = useSelector(getProjectsState).projects;
   return (
     <TableContainer>
       <Table>
