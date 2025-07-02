@@ -7,6 +7,7 @@ export type TProjectsState = {
   allProjects: TProject[];
   projects: TProject[];
   status: TProjectsStatus;
+  searchText: string;
   loading: boolean;
   error: string | null;
 };
@@ -15,8 +16,22 @@ export const initialState: TProjectsState = {
   allProjects: [],
   projects: [],
   status: "all",
+  searchText: "",
   loading: false,
   error: null,
+};
+
+const filterProjects = (state: TProjectsState) => {
+  const filteredProjects =
+    state.status !== "all"
+      ? state.allProjects.filter((project) => project.status === state.status)
+      : state.allProjects;
+
+  state.projects = state.searchText
+    ? filteredProjects.filter((project) =>
+        project.name.toLowerCase().includes(state.searchText.toLowerCase())
+      )
+    : filteredProjects;
 };
 
 export const projectsSlice = createSlice({
@@ -27,14 +42,13 @@ export const projectsSlice = createSlice({
       state.allProjects = projects;
       state.projects = projects;
     },
-    filterProjects: (state, action: PayloadAction<TProjectsStatus>) => {
+    searchProjects: (state, action: PayloadAction<string>) => {
+      state.searchText = action.payload;
+      filterProjects(state);
+    },
+    filterProjectsByStatus: (state, action: PayloadAction<TProjectsStatus>) => {
       state.status = action.payload;
-      state.projects =
-        state.status !== "all"
-          ? state.allProjects.filter(
-              (project) => project.status === action.payload
-            )
-          : state.allProjects;
+      filterProjects(state);
     },
   },
   selectors: {
@@ -42,6 +56,7 @@ export const projectsSlice = createSlice({
   },
 });
 
-export const { setProjects, filterProjects } = projectsSlice.actions;
+export const { setProjects, filterProjectsByStatus, searchProjects } =
+  projectsSlice.actions;
 export const { getProjectsState } = projectsSlice.selectors;
 export default projectsSlice.reducer;

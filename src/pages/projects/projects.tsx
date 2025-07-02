@@ -16,11 +16,12 @@ import styles from "./projects.module.css";
 import { ProjectsTable } from "../../components/projects-table/projects-table";
 import { useDispatch } from "../../services/store";
 import {
-  filterProjects,
+  filterProjectsByStatus,
+  searchProjects,
   setProjects,
 } from "../../services/slices/projectsSlice";
 import type { TProjectsStatus } from "../../utils/types";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 
 const Projects = () => {
   const dispatch = useDispatch();
@@ -30,10 +31,14 @@ const Projects = () => {
     dispatch(setProjects());
   }, []);
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    dispatch(searchProjects(event.target.value));
+  };
+
+  const handleChangeSelect = (event: SelectChangeEvent) => {
     const newStatus = event.target.value as TProjectsStatus;
     setStatus(newStatus);
-    dispatch(filterProjects(newStatus));
+    dispatch(filterProjectsByStatus(newStatus));
   };
 
   return (
@@ -49,6 +54,7 @@ const Projects = () => {
                 <SearchIcon />
               </InputAdornment>
             }
+            onChange={handleSearch}
           />
           <FormControl fullWidth>
             <InputLabel id="select-label">Status</InputLabel>
@@ -57,7 +63,7 @@ const Projects = () => {
               id="select"
               label="Status"
               value={status}
-              onChange={handleChange}
+              onChange={handleChangeSelect}
             >
               <MenuItem value="all">All</MenuItem>
               <MenuItem value="active">Active</MenuItem>
