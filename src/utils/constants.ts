@@ -28,7 +28,7 @@ export const projects: TProject[] = [
     lastRun: "20 мая",
   },
   {
-    id: 1,
+    id: 3,
     name: "Project 3",
     description: "",
     status: "active",

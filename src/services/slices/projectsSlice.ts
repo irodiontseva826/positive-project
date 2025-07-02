@@ -50,13 +50,23 @@ export const projectsSlice = createSlice({
       state.status = action.payload;
       filterProjects(state);
     },
+    removeProject: (state, action: PayloadAction<number>) => {
+      state.allProjects = state.allProjects.filter(
+        (project) => project.id != action.payload
+      );
+      filterProjects(state);
+    },
   },
   selectors: {
     getProjectsState: (state) => state,
   },
 });
 
-export const { setProjects, filterProjectsByStatus, searchProjects } =
-  projectsSlice.actions;
+export const {
+  setProjects,
+  filterProjectsByStatus,
+  searchProjects,
+  removeProject,
+} = projectsSlice.actions;
 export const { getProjectsState } = projectsSlice.selectors;
 export default projectsSlice.reducer;
