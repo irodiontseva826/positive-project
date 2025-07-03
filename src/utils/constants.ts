@@ -4,7 +4,8 @@ export const projects: TProject[] = [
   {
     id: 1,
     name: "Project 1",
-    description: "",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     status: "archive",
     template: {
       id: 1,
@@ -17,7 +18,8 @@ export const projects: TProject[] = [
   {
     id: 2,
     name: "Project 2",
-    description: "",
+    description:
+      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     status: "active",
     template: {
       id: 1,
@@ -30,7 +32,8 @@ export const projects: TProject[] = [
   {
     id: 3,
     name: "Project 3",
-    description: "",
+    description:
+      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
     status: "active",
     template: {
       id: 1,

@@ -22,20 +22,22 @@ import {
 } from "../../services/slices/projectsSlice";
 import type { TProjectsStatus } from "../../utils/types";
 import { useEffect, useState, type ChangeEvent } from "react";
+import { ProjectModal } from "../../components/project-modal/project-modal";
 
 const Projects = () => {
   const dispatch = useDispatch();
   const [status, setStatus] = useState<TProjectsStatus>("all");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     dispatch(setProjects());
   }, []);
 
-  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+  const searchProjectsInTable = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(searchProjects(event.target.value));
   };
 
-  const handleChangeSelect = (event: SelectChangeEvent) => {
+  const changeSelect = (event: SelectChangeEvent) => {
     const newStatus = event.target.value as TProjectsStatus;
     setStatus(newStatus);
     dispatch(filterProjectsByStatus(newStatus));
@@ -54,7 +56,7 @@ const Projects = () => {
                 <SearchIcon />
               </InputAdornment>
             }
-            onChange={handleSearch}
+            onChange={searchProjectsInTable}
           />
           <FormControl fullWidth>
             <InputLabel id="select-label">Status</InputLabel>
@@ -63,7 +65,7 @@ const Projects = () => {
               id="select"
               label="Status"
               value={status}
-              onChange={handleChangeSelect}
+              onChange={changeSelect}
             >
               <MenuItem value="all">All</MenuItem>
               <MenuItem value="active">Active</MenuItem>
@@ -74,9 +76,23 @@ const Projects = () => {
             <ToggleButton value="list">List</ToggleButton>
             <ToggleButton value="graph">Graph</ToggleButton>
           </ToggleButtonGroup>
-          <Button variant="outlined" size="large" startIcon={<AddIcon />}>
+          <Button
+            variant="outlined"
+            size="large"
+            startIcon={<AddIcon />}
+            onClick={() => setIsOpen(true)}
+          >
             Create
           </Button>
+          {isOpen && (
+            <ProjectModal
+              open={true}
+              onClose={() => setIsOpen(false)}
+              title="Добавление проекта"
+              buttonText="Добавить"
+              projectAction={() => setIsOpen(false)}
+            />
+          )}
         </div>
         <ProjectsTable />
       </main>

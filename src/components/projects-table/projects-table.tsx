@@ -18,12 +18,17 @@ import {
 } from "../../services/slices/projectsSlice";
 import { useState } from "react";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
+import styles from "./projects-table.module.css";
+import { ProjectModal } from "../project-modal/project-modal";
 
 export const ProjectsTable = () => {
   const projects = useSelector(getProjectsState).projects;
   const dispatch = useDispatch();
-  const [hoveredRowKey, setHoveredRowKey] = useState<number | null>(null);
   const [modalProjectId, setModalProjectId] = useState<number | null>(null);
+  const [isDelete, setIsDelete] = useState<boolean>(false);
+  const selectedProject = projects.find(
+    (project) => project.id === modalProjectId
+  );
 
   const deleteProjectFromTable = () => {
     dispatch(removeProject(modalProjectId!!));
@@ -48,12 +53,7 @@ export const ProjectsTable = () => {
         </TableHead>
         <TableBody>
           {projects.map((project) => (
-            <TableRow
-              key={project.id}
-              hover
-              onMouseOver={() => setHoveredRowKey(project.id)}
-              onMouseOut={() => setHoveredRowKey(null)}
-            >
+            <TableRow key={project.id} hover className={styles.row}>
               <TableCell padding="checkbox">
                 <Checkbox />
               </TableCell>
@@ -66,13 +66,13 @@ export const ProjectsTable = () => {
               <TableCell>{project.lastRun}</TableCell>
               <TableCell>
                 {
-                  <>
+                  <div className={styles.row__actions}>
                     <IconButton
                       aria-label="edit"
                       size="small"
-                      style={{
-                        visibility:
-                          hoveredRowKey === project.id ? "visible" : "hidden",
+                      onClick={() => {
+                        setModalProjectId(project.id);
+                        setIsDelete(false);
                       }}
                     >
                       <EditIcon />
@@ -80,26 +80,36 @@ export const ProjectsTable = () => {
                     <IconButton
                       aria-label="delete"
                       size="small"
-                      style={{
-                        visibility:
-                          hoveredRowKey === project.id ? "visible" : "hidden",
+                      onClick={() => {
+                        setModalProjectId(project.id);
+                        setIsDelete(true);
                       }}
-                      onClick={() => setModalProjectId(project.id)}
                     >
                       <DeleteIcon />
                     </IconButton>
-                  </>
+                  </div>
                 }
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
-        {modalProjectId !== null && (
+        {modalProjectId !== null && isDelete && (
           <ConfirmModal
             open={true}
             onClose={() => setModalProjectId(null)}
             confirmAction={deleteProjectFromTable}
             actionText="удалить этот проект"
+          />
+        )}
+        {modalProjectId !== null && !isDelete && (
+          <ProjectModal
+            open={true}
+            onClose={() => setModalProjectId(null)}
+            title="Редактирование проекта"
+            buttonText="Сохранить"
+            projectAction={() => setModalProjectId(null)}
+            projectName={selectedProject?.name ?? ""}
+            projectDescription={selectedProject?.description ?? ""}
           />
         )}
       </Table>
