@@ -11,15 +11,24 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Link } from "react-router-dom";
-import { useSelector } from "../../services/store";
-import { getProjectsState } from "../../services/slices/projectsSlice";
+import { useSelector, useDispatch } from "../../services/store";
+import {
+  getProjectsState,
+  removeProject,
+} from "../../services/slices/projectsSlice";
 import { useState } from "react";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
 
 export const ProjectsTable = () => {
   const projects = useSelector(getProjectsState).projects;
+  const dispatch = useDispatch();
   const [hoveredRowKey, setHoveredRowKey] = useState<number | null>(null);
   const [modalProjectId, setModalProjectId] = useState<number | null>(null);
+
+  const deleteProjectFromTable = () => {
+    dispatch(removeProject(modalProjectId!!));
+    setModalProjectId(null);
+  };
 
   return (
     <TableContainer>
@@ -88,8 +97,9 @@ export const ProjectsTable = () => {
         {modalProjectId !== null && (
           <ConfirmModal
             open={true}
-            id={modalProjectId}
             onClose={() => setModalProjectId(null)}
+            confirmAction={deleteProjectFromTable}
+            actionText="удалить этот проект"
           />
         )}
       </Table>

@@ -6,30 +6,24 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import { useDispatch } from "../../services/store";
-import { removeProject } from "../../services/slices/projectsSlice";
 
 export type TConfirmModalProps = {
   open: boolean;
   onClose: () => void;
-  id: number;
+  confirmAction: () => void;
+  actionText: string;
 };
 
-export const ConfirmModal = ({ open, onClose, id }: TConfirmModalProps) => {
-  const dispatch = useDispatch();
-  const handleClick = () => {
-    dispatch(removeProject(id));
-    onClose();
-  };
+export const ConfirmModal = ({ open, onClose, confirmAction, actionText }: TConfirmModalProps) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Подтверждение действия</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Вы действительно хотите удалить этот проект?
+          {`Вы действительно хотите ${actionText}?`}
         </DialogContentText>
         <DialogActions>
-          <Button onClick={handleClick} variant="contained">
+          <Button onClick={confirmAction} variant="contained">
             Да
           </Button>
           <Button onClick={onClose} variant="outlined">

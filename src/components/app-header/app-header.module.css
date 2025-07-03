@@ -7,13 +7,19 @@
   background-color: rgba(48, 45, 45, 1);
 }
 
-.menu {
+.header__brand {
   display: flex;
-  gap: 60px;
+  align-items: center;
+  gap: 10px;
 }
 
 .logo {
   width: 40px;
   height: 40px;
   background-color: rgba(235, 57, 57, 1);
+}
+
+.menu {
+  display: flex;
+  gap: 60px;
 }
