@@ -11,14 +11,16 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "../../services/store";
-import { getProjectsState, removeProject } from "../../services/slices/projectsSlice";
+import { useSelector } from "../../services/store";
+import { getProjectsState } from "../../services/slices/projectsSlice";
 import { useState } from "react";
+import { ConfirmModal } from "../confirm-modal/confirm-modal";
 
 export const ProjectsTable = () => {
   const projects = useSelector(getProjectsState).projects;
   const [hoveredRowKey, setHoveredRowKey] = useState<number | null>(null);
-  const dispatch = useDispatch();
+  const [modalProjectId, setModalProjectId] = useState<number | null>(null);
+
   return (
     <TableContainer>
       <Table>
@@ -73,7 +75,7 @@ export const ProjectsTable = () => {
                         visibility:
                           hoveredRowKey === project.id ? "visible" : "hidden",
                       }}
-                      onClick={() => dispatch(removeProject(project.id))}
+                      onClick={() => setModalProjectId(project.id)}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -83,6 +85,13 @@ export const ProjectsTable = () => {
             </TableRow>
           ))}
         </TableBody>
+        {modalProjectId !== null && (
+          <ConfirmModal
+            open={true}
+            id={modalProjectId}
+            onClose={() => setModalProjectId(null)}
+          />
+        )}
       </Table>
     </TableContainer>
   );
