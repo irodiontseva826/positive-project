@@ -2,6 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { TProjectsStatus, TProject } from "../../utils/types";
 import { projects } from "../../utils/constants";
+import dayjs from "dayjs";
+import "dayjs/locale/ru";
+import { customAlphabet } from "nanoid";
+
+dayjs.locale("ru");
 
 export type TProjectsState = {
   allProjects: TProject[];
@@ -56,6 +61,38 @@ export const projectsSlice = createSlice({
       );
       filterProjects(state);
     },
+    editProject: (
+      state,
+      action: PayloadAction<Pick<TProject, "id" | "name" | "description">>
+    ) => {
+      const project = state.allProjects.find(
+        (project) => project.id === action.payload.id
+      );
+      project!.name = action.payload.name;
+      project!.description = action.payload.description;
+      project!.updatedAt = dayjs().format("D MMM HH:mm");
+      filterProjects(state);
+    },
+    addProject: (
+      state,
+      action: PayloadAction<Pick<TProject, "id" | "name" | "description">>
+    ) => {
+      const nanoid = customAlphabet("0123456789", 10);
+      state.allProjects.push({
+        id: Number(nanoid()),
+        name: action.payload.name,
+        description: action.payload.description,
+        status: "active",
+        template: {
+          id: 1,
+          name: "Template 1",
+        },
+        createdAt: dayjs().format("D MMM"),
+        updatedAt: dayjs().format("D MMM HH:mm"),
+        lastRun: "-",
+      });
+      filterProjects(state);
+    },
   },
   selectors: {
     getProjectsState: (state) => state,
@@ -67,6 +104,8 @@ export const {
   filterProjectsByStatus,
   searchProjects,
   removeProject,
+  editProject,
+  addProject,
 } = projectsSlice.actions;
 export const { getProjectsState } = projectsSlice.selectors;
 export default projectsSlice.reducer;

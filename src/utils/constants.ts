@@ -1,4 +1,7 @@
 import type { TProject } from "./types";
+import dayjs from "dayjs";
+import "dayjs/locale/ru";
+dayjs.locale("ru");
 
 export const projects: TProject[] = [
   {
@@ -11,9 +14,9 @@ export const projects: TProject[] = [
       id: 1,
       name: "Template 1",
     },
-    createdAt: "15 мая",
-    updatedAt: "Сегодня, 14:12",
-    lastRun: "20 мая",
+    createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
+    updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+    lastRun: dayjs("2025-05-20 15:00").format("D MMM"),
   },
   {
     id: 2,
@@ -22,12 +25,12 @@ export const projects: TProject[] = [
       "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     status: "active",
     template: {
-      id: 1,
+      id: 2,
       name: "Template 2",
     },
-    createdAt: "15 мая",
-    updatedAt: "Сегодня, 14:12",
-    lastRun: "20 мая",
+    createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
+    updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+    lastRun: dayjs("2025-05-20 15:00").format("D MMM"),
   },
   {
     id: 3,
@@ -39,8 +42,8 @@ export const projects: TProject[] = [
       id: 1,
       name: "Template 1",
     },
-    createdAt: "15 мая",
-    updatedAt: "Сегодня, 14:12",
-    lastRun: "20 мая",
+    createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
+    updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+    lastRun: dayjs("2025-05-20 15:00").format("D MMM"),
   },
 ];

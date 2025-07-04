@@ -7,7 +7,7 @@
   background-color: rgba(48, 45, 45, 1);
 }
 
-.header__brand {
+.brand {
   display: flex;
   align-items: center;
   gap: 10px;

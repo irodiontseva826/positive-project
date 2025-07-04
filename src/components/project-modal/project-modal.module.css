@@ -1,15 +1,10 @@
-.dialog__header {
+.header {
   display: flex;
   justify-content: space-between;
 }
 
-.dialog__content {
+.content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-}
-
-.text-field__container {
-  display: flex;
   gap: 20px;
 }

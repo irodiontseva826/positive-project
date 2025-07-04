@@ -13,6 +13,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "../../services/store";
 import {
+  editProject,
   getProjectsState,
   removeProject,
 } from "../../services/slices/projectsSlice";
@@ -33,6 +34,16 @@ export const ProjectsTable = () => {
   const deleteProjectFromTable = () => {
     dispatch(removeProject(modalProjectId!!));
     setModalProjectId(null);
+  };
+
+  const clickEditButton = (id: number) => {
+    setModalProjectId(id);
+    setIsDelete(false);
+  };
+
+  const clickDeleteButton = (id: number) => {
+    setModalProjectId(id);
+    setIsDelete(true);
   };
 
   return (
@@ -66,24 +77,18 @@ export const ProjectsTable = () => {
               <TableCell>{project.lastRun}</TableCell>
               <TableCell>
                 {
-                  <div className={styles.row__actions}>
+                  <div className={styles.row_actions}>
                     <IconButton
                       aria-label="edit"
                       size="small"
-                      onClick={() => {
-                        setModalProjectId(project.id);
-                        setIsDelete(false);
-                      }}
+                      onClick={() => clickEditButton(project.id)}
                     >
                       <EditIcon />
                     </IconButton>
                     <IconButton
                       aria-label="delete"
                       size="small"
-                      onClick={() => {
-                        setModalProjectId(project.id);
-                        setIsDelete(true);
-                      }}
+                      onClick={() => clickDeleteButton(project.id)}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -98,7 +103,7 @@ export const ProjectsTable = () => {
             open={true}
             onClose={() => setModalProjectId(null)}
             confirmAction={deleteProjectFromTable}
-            actionText="удалить этот проект"
+            actionText="Вы действительно хотите удалить этот проект"
           />
         )}
         {modalProjectId !== null && !isDelete && (
@@ -107,7 +112,11 @@ export const ProjectsTable = () => {
             onClose={() => setModalProjectId(null)}
             title="Редактирование проекта"
             buttonText="Сохранить"
-            projectAction={() => setModalProjectId(null)}
+            projectAction={({ id, name, description }) => {
+              dispatch(editProject({ id, name, description }));
+              setModalProjectId(null);
+            }}
+            projectId={modalProjectId}
             projectName={selectedProject?.name ?? ""}
             projectDescription={selectedProject?.description ?? ""}
           />

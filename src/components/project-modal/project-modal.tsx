@@ -16,7 +16,12 @@ export type TProjectModalProps = {
   onClose: () => void;
   title: string;
   buttonText: string;
-  projectAction: () => void;
+  projectAction: (data: {
+    id: number;
+    name: string;
+    description: string;
+  }) => void;
+  projectId: number;
   projectName?: string;
   projectDescription?: string;
 };
@@ -27,6 +32,7 @@ export const ProjectModal = ({
   title,
   buttonText,
   projectAction,
+  projectId,
   projectName,
   projectDescription,
 }: TProjectModalProps) => {
@@ -40,13 +46,13 @@ export const ProjectModal = ({
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth>
-      <DialogTitle className={styles.dialog__header}>
+      <DialogTitle className={styles.header}>
         {title}
         <IconButton onClick={onClose} size="small">
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent className={styles.dialog__content}>
+      <DialogContent className={styles.content}>
         <TextField
           variant="filled"
           id="name"
@@ -64,7 +70,11 @@ export const ProjectModal = ({
           onChange={(e) => setDescription(e.target.value)}
         />
         <DialogActions>
-          <Button onClick={projectAction} variant="contained">
+          <Button
+            onClick={() => projectAction({ id: projectId, name, description })}
+            variant="contained"
+            disabled={name.trim() === ""}
+          >
             {buttonText}
           </Button>
           <Button onClick={onClose} variant="outlined">

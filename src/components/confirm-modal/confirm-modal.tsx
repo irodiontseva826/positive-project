@@ -14,14 +14,17 @@ export type TConfirmModalProps = {
   actionText: string;
 };
 
-export const ConfirmModal = ({ open, onClose, confirmAction, actionText }: TConfirmModalProps) => {
+export const ConfirmModal = ({
+  open,
+  onClose,
+  confirmAction,
+  actionText,
+}: TConfirmModalProps) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Подтверждение действия</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          {`Вы действительно хотите ${actionText}?`}
-        </DialogContentText>
+        <DialogContentText>{actionText}</DialogContentText>
         <DialogActions>
           <Button onClick={confirmAction} variant="contained">
             Да

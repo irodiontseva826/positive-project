@@ -4,7 +4,7 @@ import styles from "./app-header.module.css";
 export const AppHeader = () => {
   return (
     <header className={styles.header}>
-      <div className={styles.header__brand}>
+      <div className={styles.brand}>
         <div className={styles.logo}></div>
         <h2>Practice app</h2>
       </div>

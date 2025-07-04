@@ -16,6 +16,7 @@ import styles from "./projects.module.css";
 import { ProjectsTable } from "../../components/projects-table/projects-table";
 import { useDispatch } from "../../services/store";
 import {
+  addProject,
   filterProjectsByStatus,
   searchProjects,
   setProjects,
@@ -90,7 +91,11 @@ const Projects = () => {
               onClose={() => setIsOpen(false)}
               title="Добавление проекта"
               buttonText="Добавить"
-              projectAction={() => setIsOpen(false)}
+              projectAction={({ id, name, description }) => {
+                dispatch(addProject({ id, name, description }));
+                setIsOpen(false);
+              }}
+              projectId={0}
             />
           )}
         </div>
