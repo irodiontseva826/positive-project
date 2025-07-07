@@ -1,9 +1,9 @@
-import type { TProject } from "./types";
+import type { Project } from "./types";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 dayjs.locale("ru");
 
-export const projects: TProject[] = [
+export const projects: Project[] = [
   {
     id: 1,
     name: "Project 1",
@@ -17,6 +17,32 @@ export const projects: TProject[] = [
     createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
     updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
     lastRun: dayjs("2025-05-20 15:00").format("D MMM"),
+    steps: [
+      {
+        id: 1,
+        name: "Step 1",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
+        updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+      },
+      {
+        id: 2,
+        name: "Step 2",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
+        updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+      },
+      {
+        id: 3,
+        name: "Step 3",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
+        updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+      },
+    ],
   },
   {
     id: 2,
@@ -31,6 +57,32 @@ export const projects: TProject[] = [
     createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
     updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
     lastRun: dayjs("2025-05-20 15:00").format("D MMM"),
+    steps: [
+      {
+        id: 1,
+        name: "Step 1",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
+        updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+      },
+      {
+        id: 2,
+        name: "Step 2",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
+        updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+      },
+      {
+        id: 3,
+        name: "Step 3",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
+        updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+      },
+    ],
   },
   {
     id: 3,
@@ -45,5 +97,31 @@ export const projects: TProject[] = [
     createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
     updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
     lastRun: dayjs("2025-05-20 15:00").format("D MMM"),
+    steps: [
+      {
+        id: 1,
+        name: "Step 1",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
+        updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+      },
+      {
+        id: 2,
+        name: "Step 2",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
+        updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+      },
+      {
+        id: 3,
+        name: "Step 3",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
+        updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+      },
+    ],
   },
 ];

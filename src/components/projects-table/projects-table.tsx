@@ -69,7 +69,7 @@ export const ProjectsTable = () => {
                 <Checkbox />
               </TableCell>
               <TableCell>
-                <Link to="#">{project.name}</Link>
+                <Link to={`/projects/${project.id}`}>{project.name}</Link>
               </TableCell>
               <TableCell>{project.template.name}</TableCell>
               <TableCell>{project.updatedAt}</TableCell>

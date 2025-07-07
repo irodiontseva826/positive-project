@@ -1,0 +1,7 @@
+.row_actions {
+  visibility: hidden;
+}
+
+.row:hover .row_actions {
+  visibility: visible;
+}

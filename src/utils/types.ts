@@ -1,10 +1,9 @@
-type ProjectStep = {
+export type ProjectStep = {
   id: number;
   name: string;
   description: string;
   createdAt: string; // ISO
   updatedAt: string; // ISO
-  lastRun: string; // ISO
 };
 
 type TemplateShort = {
@@ -12,7 +11,7 @@ type TemplateShort = {
   name: string;
 };
 
-type Template = {
+export type Template = {
   id: number;
   name: string;
   description: string;
@@ -33,5 +32,5 @@ export type Project = {
   createdAt: string; // ISO
   updatedAt: string; // ISO
   lastRun: string; // ISO
-  steps?: ProjectStep[];
+  steps: ProjectStep[];
 };

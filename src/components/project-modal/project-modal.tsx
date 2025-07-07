@@ -12,7 +12,7 @@ import styles from "./project-modal.module.css";
 import { useState } from "react";
 import type { Project } from "../../utils/types";
 
-export type TProjectModalProps = {
+export type ProjectModalProps = {
   open: boolean;
   onClose: () => void;
   title: string;
@@ -28,7 +28,7 @@ export const ProjectModal = ({
   buttonText,
   projectAction,
   project,
-}: TProjectModalProps) => {
+}: ProjectModalProps) => {
   const [updatedProject, setUpdatedProject] = useState<Project | undefined>(
     project
   );

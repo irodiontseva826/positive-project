@@ -84,6 +84,7 @@ export const projectsSlice = createSlice({
         createdAt: dayjs().format("D MMM"),
         updatedAt: dayjs().format("D MMM HH:mm"),
         lastRun: "-",
+        steps: [],
       });
       filterProjects(state);
     },
