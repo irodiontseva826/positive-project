@@ -112,13 +112,11 @@ export const ProjectsTable = () => {
             onClose={() => setModalProjectId(null)}
             title="Редактирование проекта"
             buttonText="Сохранить"
-            projectAction={({ id, name, description }) => {
-              dispatch(editProject({ id, name, description }));
+            projectAction={(updatedProject) => {
+              dispatch(editProject(updatedProject));
               setModalProjectId(null);
             }}
-            projectId={modalProjectId}
-            projectName={selectedProject?.name ?? ""}
-            projectDescription={selectedProject?.description ?? ""}
+            project={selectedProject!}
           />
         )}
       </Table>

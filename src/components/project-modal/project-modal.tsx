@@ -9,21 +9,16 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import styles from "./project-modal.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import type { Project } from "../../utils/types";
 
 export type TProjectModalProps = {
   open: boolean;
   onClose: () => void;
   title: string;
   buttonText: string;
-  projectAction: (data: {
-    id: number;
-    name: string;
-    description: string;
-  }) => void;
-  projectId: number;
-  projectName?: string;
-  projectDescription?: string;
+  projectAction: (project: Project) => void;
+  project?: Project;
 };
 
 export const ProjectModal = ({
@@ -32,17 +27,11 @@ export const ProjectModal = ({
   title,
   buttonText,
   projectAction,
-  projectId,
-  projectName,
-  projectDescription,
+  project,
 }: TProjectModalProps) => {
-  const [name, setName] = useState(projectName ?? "");
-  const [description, setDescription] = useState(projectDescription ?? "");
-
-  useEffect(() => {
-    setName(projectName ?? "");
-    setDescription(projectDescription ?? "");
-  }, [projectName, projectDescription]);
+  const [updatedProject, setUpdatedProject] = useState<Project | undefined>(
+    project
+  );
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth>
@@ -57,8 +46,13 @@ export const ProjectModal = ({
           variant="filled"
           id="name"
           label="Название"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={updatedProject?.name ?? ""}
+          onChange={(e) =>
+            setUpdatedProject({
+              ...updatedProject,
+              name: e.target.value,
+            } as Project)
+          }
         />
         <TextField
           variant="filled"
@@ -66,14 +60,19 @@ export const ProjectModal = ({
           rows={5}
           id="description"
           label="Описание"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={updatedProject?.description ?? ""}
+          onChange={(e) =>
+            setUpdatedProject({
+              ...updatedProject,
+              description: e.target.value,
+            } as Project)
+          }
         />
         <DialogActions>
           <Button
-            onClick={() => projectAction({ id: projectId, name, description })}
+            onClick={() => projectAction(updatedProject as Project)}
             variant="contained"
-            disabled={name.trim() === ""}
+            disabled={updatedProject?.name.trim() === "" || !updatedProject}
           >
             {buttonText}
           </Button>

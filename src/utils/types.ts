@@ -1,4 +1,4 @@
-type TProjectStep = {
+type ProjectStep = {
   id: number;
   name: string;
   description: string;
@@ -18,20 +18,20 @@ type Template = {
   description: string;
   createdAt: string; // ISO
   updatedAt: string; // ISO,
-  steps: TProjectStep[];
+  steps: ProjectStep[];
 };
 
-export type TStatus = "active" | "archive";
-export type TProjectsStatus = TStatus | "all";
+export type Status = "active" | "archive";
+export type ProjectsStatus = Status | "all";
 
-export type TProject = {
+export type Project = {
   id: number;
   name: string;
   description: string;
-  status: TStatus;
+  status: Status;
   template: TemplateShort;
   createdAt: string; // ISO
   updatedAt: string; // ISO
   lastRun: string; // ISO
-  steps?: TProjectStep[];
+  steps?: ProjectStep[];
 };
