@@ -12,12 +12,28 @@ import type { ProjectStep } from "../../utils/types";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import styles from "./steps-table.module.css";
+import { useState } from "react";
+import { SidePanel } from "../side-panel/side-panel";
+import { ConfirmModal } from "../confirm-modal/confirm-modal";
 
 type StepsTableProps = {
   steps: ProjectStep[];
 };
 
 export const StepsTable = ({ steps }: StepsTableProps) => {
+  const [selectedStepId, setSelectedStepId] = useState<number | null>(null);
+  const [isDelete, setIsDelete] = useState<boolean>(false);
+
+  const clickEditButton = (id: number) => {
+    setSelectedStepId(id);
+    setIsDelete(false);
+  };
+
+  const clickDeleteButton = (id: number) => {
+    setSelectedStepId(id);
+    setIsDelete(true);
+  };
+
   return (
     <TableContainer>
       <Table>
@@ -27,6 +43,7 @@ export const StepsTable = ({ steps }: StepsTableProps) => {
               <Checkbox />
             </TableCell>
             <TableCell>Step</TableCell>
+            <TableCell>Attack</TableCell>
             <TableCell>Changed</TableCell>
             <TableCell>Create</TableCell>
             <TableCell></TableCell>
@@ -39,6 +56,7 @@ export const StepsTable = ({ steps }: StepsTableProps) => {
                 <Checkbox />
               </TableCell>
               <TableCell>{step.name}</TableCell>
+              <TableCell>{step.attack.name}</TableCell>
               <TableCell>{step.updatedAt}</TableCell>
               <TableCell>{step.createdAt}</TableCell>
               <TableCell>
@@ -47,14 +65,14 @@ export const StepsTable = ({ steps }: StepsTableProps) => {
                     <IconButton
                       aria-label="edit"
                       size="small"
-                      //onClick={() => clickEditButton(project.id)}
+                      onClick={() => clickEditButton(step.id)}
                     >
                       <EditIcon />
                     </IconButton>
                     <IconButton
                       aria-label="delete"
                       size="small"
-                      //onClick={() => clickDeleteButton(project.id)}
+                      onClick={() => clickDeleteButton(step.id)}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -64,6 +82,24 @@ export const StepsTable = ({ steps }: StepsTableProps) => {
             </TableRow>
           ))}
         </TableBody>
+        {selectedStepId !== null && isDelete && (
+          <ConfirmModal
+            open={true}
+            onClose={() => setSelectedStepId(null)}
+            confirmAction={() => setSelectedStepId(null)}
+            actionText="Вы действительно хотите удалить этот шаг?"
+          />
+        )}
+        {selectedStepId !== null && !isDelete && (
+          <SidePanel
+            open={true}
+            onClose={() => setSelectedStepId(null)}
+            title="Редактирование шагов"
+            buttonText="Сохранить"
+            steps={steps}
+            selectedStepId={selectedStepId}
+          />
+        )}
       </Table>
     </TableContainer>
   );

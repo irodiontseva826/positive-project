@@ -1,9 +1,15 @@
+export type Attack = {
+  id: number;
+  name: string;
+};
+
 export type ProjectStep = {
   id: number;
   name: string;
   description: string;
   createdAt: string; // ISO
   updatedAt: string; // ISO
+  attack: Attack;
 };
 
 type TemplateShort = {

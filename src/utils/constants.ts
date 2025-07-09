@@ -1,7 +1,16 @@
-import type { Project } from "./types";
+import type { Attack, Project } from "./types";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 dayjs.locale("ru");
+
+export const attacks: Attack[] = [
+  { id: 1, name: "DDos" },
+  { id: 2, name: "Phishing" },
+  { id: 3, name: "Brute-force" },
+  { id: 4, name: "MITM" },
+  { id: 5, name: "XSS" },
+  { id: 6, name: "SQL-injection" },
+];
 
 export const projects: Project[] = [
   {
@@ -25,6 +34,7 @@ export const projects: Project[] = [
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+        attack: attacks[0],
       },
       {
         id: 2,
@@ -33,6 +43,7 @@ export const projects: Project[] = [
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+        attack: attacks[1],
       },
       {
         id: 3,
@@ -41,6 +52,7 @@ export const projects: Project[] = [
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+        attack: attacks[2],
       },
     ],
   },
@@ -65,6 +77,7 @@ export const projects: Project[] = [
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+        attack: attacks[3],
       },
       {
         id: 2,
@@ -73,6 +86,7 @@ export const projects: Project[] = [
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+        attack: attacks[4],
       },
       {
         id: 3,
@@ -81,6 +95,16 @@ export const projects: Project[] = [
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+        attack: attacks[5],
+      },
+      {
+        id: 4,
+        name: "Step 4",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
+        updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+        attack: attacks[5],
       },
     ],
   },
@@ -105,6 +129,7 @@ export const projects: Project[] = [
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+        attack: attacks[0],
       },
       {
         id: 2,
@@ -113,6 +138,7 @@ export const projects: Project[] = [
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+        attack: attacks[1],
       },
       {
         id: 3,
@@ -121,6 +147,25 @@ export const projects: Project[] = [
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+        attack: attacks[2],
+      },
+      {
+        id: 4,
+        name: "Step 4",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
+        updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+        attack: attacks[2],
+      },
+      {
+        id: 5,
+        name: "Step 5",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
+        updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
+        attack: attacks[2],
       },
     ],
   },

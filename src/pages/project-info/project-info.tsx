@@ -30,6 +30,7 @@ export const ProjectInfo = () => {
           variant="outlined"
           size="large"
           startIcon={<AddIcon />}
+          disabled={project!.steps.length == 5}
           //onClick={() => setIsOpen(true)}
         >
           Add step
