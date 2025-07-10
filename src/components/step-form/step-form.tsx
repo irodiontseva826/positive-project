@@ -2,6 +2,8 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
+  IconButton,
   MenuItem,
   TextField,
   Typography,
@@ -10,8 +12,11 @@ import type { ProjectStep } from "../../utils/types";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { attacks } from "../../utils/constants";
 import { useState, type ChangeEvent, type SyntheticEvent } from "react";
-//import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteIcon from "@mui/icons-material/Delete";
 import isIP from "validator/lib/isIP";
+import { ConfirmModal } from "../confirm-modal/confirm-modal";
+import { removeStep } from "../../services/slices/stepsSlice";
+import { useDispatch } from "../../services/store";
 
 type StepFormProps = {
   step?: ProjectStep;
@@ -22,102 +27,128 @@ type StepFormProps = {
 
 export const StepForm = ({ step, index, isOpen, onChange }: StepFormProps) => {
   const [expanded, setExpanded] = useState<boolean>(isOpen);
-  const [updatedStep, setUpdatedStep] = useState<ProjectStep | undefined>(step);
-  const [ip, setIp] = useState(step?.ip ?? "");
+  const [updatedStep, setUpdatedStep] = useState<ProjectStep | undefined>(
+    step ?? {
+      id: 0,
+      name: "",
+      description: "",
+      createdAt: "",
+      updatedAt: "",
+      attack: { id: 0, name: "" },
+      ip: "",
+    }
+  );
   const [ipError, setIpError] = useState<string>("");
+  const [selectedStepId, setSelectedStepId] = useState<number | null>(null);
+  const dispatch = useDispatch();
 
   const toggleAccordion = (event: SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded);
   };
 
-  const changeIP = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setIp(value);
-
-    if (!isIP(value, 4)) {
-      setIpError("Некорректный IP");
-    } else {
-      setIpError("");
-      setNewStep({ ...updatedStep!, ip: value });
-    }
-  };
-
-  const setNewStep = (newStep: ProjectStep) => {
+  const updateStepState = (newStep: ProjectStep) => {
     setUpdatedStep(newStep);
     onChange(newStep, index);
   };
 
+  const changeIP = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setIpError(
+      value && isIP(value, 4) ? "" : "Некорректный IP или поле пустое"
+    );
+    updateStepState({ ...updatedStep!, ip: value });
+  };
+
+  const deleteStepFromTable = () => {
+    dispatch(removeStep(selectedStepId!));
+    setSelectedStepId(null);
+  };
+
   return (
-    <Accordion expanded={expanded} onChange={toggleAccordion}>
-      <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
-        <Typography variant="subtitle1" mt={4}>
-          Шаг {index + 1}
-        </Typography>
-        {/*
-              <IconButton
-                aria-label="delete"
-                size="small"
-                onClick={(e) => {
-                  e.stopPropagation()}}
-              >
-                <DeleteIcon />
-              </IconButton>*/}
-      </AccordionSummary>
-      <AccordionDetails>
-        <TextField
-          label="Название"
-          fullWidth
-          margin="normal"
-          value={updatedStep?.name ?? ""}
-          onChange={(e) =>
-            setNewStep({ ...updatedStep!, name: e.target.value })
-          }
-        />
-        <TextField
-          label="IP узла"
-          fullWidth
-          margin="normal"
-          value={ip}
-          onChange={changeIP}
-          error={!!ipError}
-          helperText={ipError}
-        />
-
-        <TextField
-          select
-          label="Тип атаки"
-          fullWidth
-          margin="normal"
-          value={updatedStep?.attack?.id ?? ""}
-          onChange={(e) => {
-            const selectedId = Number(e.target.value);
-            const selectedAttack = attacks.find(
-              (attack) => attack.id === selectedId
-            );
-            if (selectedAttack) {
-              setNewStep({ ...updatedStep!, attack: selectedAttack });
+    <Box display="flex" alignItems="flex-start" gap={2} mt={4}>
+      <Accordion
+        expanded={expanded}
+        onChange={toggleAccordion}
+        key={step?.id || `step-${index}`}
+      >
+        <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
+          <Typography variant="subtitle1" mt={4}>
+            Шаг {index + 1}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <TextField
+            label="Название"
+            fullWidth
+            margin="normal"
+            value={updatedStep?.name ?? ""}
+            onChange={(e) =>
+              updateStepState({ ...updatedStep!, name: e.target.value })
             }
-          }}
-        >
-          {attacks.map((attack) => (
-            <MenuItem key={attack.id} value={attack.id}>
-              {attack.name}
-            </MenuItem>
-          ))}
-        </TextField>
+          />
+          <TextField
+            label="IP узла"
+            fullWidth
+            margin="normal"
+            value={updatedStep?.ip ?? ""}
+            onChange={changeIP}
+            error={!!ipError}
+            helperText={ipError}
+          />
 
-        <TextField
-          label="Заметки"
-          fullWidth
-          margin="normal"
-          multiline
-          minRows={3}
-          value={updatedStep?.description ?? ""}
-          onChange={(e) =>
-            setNewStep({ ...updatedStep!, description: e.target.value })
-          }
+          <TextField
+            select
+            label="Тип атаки"
+            fullWidth
+            margin="normal"
+            value={updatedStep?.attack?.id ?? ""}
+            onChange={(e) => {
+              const selectedId = Number(e.target.value);
+              const selectedAttack = attacks.find(
+                (attack) => attack.id === selectedId
+              );
+              if (selectedAttack) {
+                updateStepState({ ...updatedStep!, attack: selectedAttack });
+              }
+            }}
+          >
+            {attacks.map((attack) => (
+              <MenuItem key={attack.id} value={attack.id}>
+                {attack.name}
+              </MenuItem>
+            ))}
+          </TextField>
+
+          <TextField
+            label="Заметки"
+            fullWidth
+            margin="normal"
+            multiline
+            minRows={3}
+            value={updatedStep?.description ?? ""}
+            onChange={(e) =>
+              updateStepState({ ...updatedStep!, description: e.target.value })
+            }
+          />
+        </AccordionDetails>
+      </Accordion>
+
+      <IconButton
+        aria-label="delete"
+        size="small"
+        onClick={() => setSelectedStepId(updatedStep!.id)}
+        disabled={updatedStep?.id === 0}
+      >
+        <DeleteIcon />
+      </IconButton>
+      {selectedStepId !== null && (
+        <ConfirmModal
+          open={true}
+          onClose={() => setSelectedStepId(null)}
+          confirmAction={deleteStepFromTable}
+          actionText="Вы действительно хотите удалить этот шаг?"
         />
-      </AccordionDetails>
-    </Accordion>
+      )}
+    </Box>
   );
 };
