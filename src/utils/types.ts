@@ -10,6 +10,7 @@ export type ProjectStep = {
   createdAt: string; // ISO
   updatedAt: string; // ISO
   attack: Attack;
+  ip: string;
 };
 
 type TemplateShort = {

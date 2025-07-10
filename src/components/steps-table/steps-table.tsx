@@ -15,6 +15,8 @@ import styles from "./steps-table.module.css";
 import { useState } from "react";
 import { SidePanel } from "../side-panel/side-panel";
 import { ConfirmModal } from "../confirm-modal/confirm-modal";
+import { useDispatch } from "../../services/store";
+import { removeStep } from "../../services/slices/stepsSlice";
 
 type StepsTableProps = {
   steps: ProjectStep[];
@@ -23,6 +25,12 @@ type StepsTableProps = {
 export const StepsTable = ({ steps }: StepsTableProps) => {
   const [selectedStepId, setSelectedStepId] = useState<number | null>(null);
   const [isDelete, setIsDelete] = useState<boolean>(false);
+  const dispatch = useDispatch();
+
+  const deleteStepFromTable = () => {
+    dispatch(removeStep(selectedStepId!!));
+    setSelectedStepId(null);
+  };
 
   const clickEditButton = (id: number) => {
     setSelectedStepId(id);
@@ -86,7 +94,7 @@ export const StepsTable = ({ steps }: StepsTableProps) => {
           <ConfirmModal
             open={true}
             onClose={() => setSelectedStepId(null)}
-            confirmAction={() => setSelectedStepId(null)}
+            confirmAction={deleteStepFromTable}
             actionText="Вы действительно хотите удалить этот шаг?"
           />
         )}

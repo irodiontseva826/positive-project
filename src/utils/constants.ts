@@ -35,6 +35,7 @@ export const projects: Project[] = [
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
         attack: attacks[0],
+        ip: "192.168.1.1",
       },
       {
         id: 2,
@@ -44,6 +45,7 @@ export const projects: Project[] = [
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
         attack: attacks[1],
+        ip: "192.168.10.14",
       },
       {
         id: 3,
@@ -53,6 +55,7 @@ export const projects: Project[] = [
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
         attack: attacks[2],
+        ip: "192.168.4.7",
       },
     ],
   },
@@ -78,6 +81,7 @@ export const projects: Project[] = [
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
         attack: attacks[3],
+        ip: "192.168.1.1",
       },
       {
         id: 2,
@@ -87,6 +91,7 @@ export const projects: Project[] = [
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
         attack: attacks[4],
+        ip: "192.168.12.13",
       },
       {
         id: 3,
@@ -96,6 +101,7 @@ export const projects: Project[] = [
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
         attack: attacks[5],
+        ip: "192.168.9.1",
       },
       {
         id: 4,
@@ -105,6 +111,7 @@ export const projects: Project[] = [
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
         attack: attacks[5],
+        ip: "192.168.1.19",
       },
     ],
   },
@@ -130,6 +137,7 @@ export const projects: Project[] = [
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
         attack: attacks[0],
+        ip: "192.168.1.1",
       },
       {
         id: 2,
@@ -139,6 +147,7 @@ export const projects: Project[] = [
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
         attack: attacks[1],
+        ip: "192.168.10.1",
       },
       {
         id: 3,
@@ -148,6 +157,7 @@ export const projects: Project[] = [
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
         attack: attacks[2],
+        ip: "192.168.1.11",
       },
       {
         id: 4,
@@ -157,6 +167,7 @@ export const projects: Project[] = [
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
         attack: attacks[2],
+        ip: "192.168.15.1",
       },
       {
         id: 5,
@@ -166,6 +177,7 @@ export const projects: Project[] = [
         createdAt: dayjs("2025-05-15 15:00").format("D MMM"),
         updatedAt: dayjs("2025-05-17 14:12").format("D MMM HH:mm"),
         attack: attacks[2],
+        ip: "192.168.18.12",
       },
     ],
   },

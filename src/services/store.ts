@@ -6,9 +6,11 @@ import {
 } from "react-redux";
 import type { TypedUseSelectorHook } from "react-redux";
 import projectsReducer from "./slices/projectsSlice";
+import stepsReducer from "./slices/stepsSlice";
 
 export const rootReducer = combineSlices({
   projects: projectsReducer,
+  steps: stepsReducer,
 });
 
 const store = configureStore({
