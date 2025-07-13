@@ -1,12 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { ProjectsStatus, Project } from "../../utils/types";
-import { projects } from "../../utils/constants";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import { customAlphabet } from "nanoid";
+import { getProjectsApi } from "../../utils/api";
 
 dayjs.locale("ru");
+
+export const getProjects = createAsyncThunk("projects/getAll", getProjectsApi);
 
 export type ProjectsState = {
   allProjects: Project[];
@@ -43,10 +45,6 @@ export const projectsSlice = createSlice({
   name: "projects",
   initialState,
   reducers: {
-    setProjects: (state) => {
-      state.allProjects = projects;
-      state.projects = projects;
-    },
     searchProjects: (state, action: PayloadAction<string>) => {
       state.searchText = action.payload;
       filterProjects(state);
@@ -92,10 +90,26 @@ export const projectsSlice = createSlice({
   selectors: {
     getProjectsState: (state) => state,
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getProjects.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getProjects.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message as string;
+      })
+      .addCase(getProjects.fulfilled, (state, action) => {
+        state.loading = false;
+        state.allProjects = action.payload;
+        state.projects = action.payload;
+        state.error = null;
+      });
+  },
 });
 
 export const {
-  setProjects,
   filterProjectsByStatus,
   searchProjects,
   removeProject,

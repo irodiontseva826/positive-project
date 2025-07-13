@@ -18,8 +18,8 @@ import { useDispatch } from "../../services/store";
 import {
   addProject,
   filterProjectsByStatus,
+  getProjects,
   searchProjects,
-  setProjects,
 } from "../../services/slices/projectsSlice";
 import type { ProjectsStatus } from "../../utils/types";
 import { useEffect, useState, type ChangeEvent } from "react";
@@ -31,7 +31,7 @@ const Projects = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    dispatch(setProjects());
+    dispatch(getProjects());
   }, []);
 
   const searchProjectsInTable = (event: ChangeEvent<HTMLInputElement>) => {
